@@ -1,0 +1,34 @@
+# --- Base com dependências
+FROM node:22.14.0-slim AS deps
+
+WORKDIR /app
+
+# Instala OpenSSL (necessário pro Prisma funcionar corretamente)
+RUN apt-get update && apt-get install -y openssl
+
+COPY package.json ./
+COPY yarn.lock ./
+RUN yarn install --frozen-lockfile
+
+# --- Dev com código e volumes
+FROM node:22.14.0-slim
+
+# Instala ferramentas úteis pro ambiente dev (Nest, Prisma, etc)
+RUN apt-get update && apt-get install -y \
+  procps \
+  openssl \
+  && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copia os node_modules já com OpenSSL compatível
+COPY --from=deps /app/node_modules ./node_modules
+
+# Copia o restante da aplicação
+COPY apps/backend ./apps/backend
+
+WORKDIR /app/apps/backend
+
+EXPOSE 3333
+
+CMD ["yarn", "start:dev"]
