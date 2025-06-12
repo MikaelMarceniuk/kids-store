@@ -1,0 +1,17 @@
+{
+  "name": "kids-toy-store",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "MikaelMarceniuk <mika.marceniuk@gmail.com>",
+  "license": "MIT",
+  "private": "true",
+  "workspaces": {
+    "packages": [
+      "apps/*"
+    ],
+    "nohoist": [
+      "**",
+      "**/**"
+    ]
+  }
+}
