@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -13,6 +12,7 @@ model User {
   name         String
   email        String @unique
   passwordHash String @map("password_hash")
+  role         Role   @default(USER)
 
   sessions Session[]
 
@@ -31,4 +31,9 @@ model Session {
   user   User   @relation(fields: [userId], references: [id])
 
   @@map("sessions")
+}
+
+enum Role {
+  USER
+  ADMIN
 }

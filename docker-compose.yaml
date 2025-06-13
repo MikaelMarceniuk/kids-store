@@ -23,7 +23,7 @@ services:
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile.dev
-    container_name: web-trackfast
+    container_name: web-kidstoystore
     platform: linux/x86_64
     ports:
       - 3000:3000
