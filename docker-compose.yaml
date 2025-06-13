@@ -13,12 +13,28 @@ services:
       - ./apps/backend/.env:/app/apps/backend/.env:delegated
       - ./apps/backend/src:/app/apps/backend/src:delegated
       - ./apps/backend/node_modules:/app/apps/backend/node_modules:delegated
-      - ./packages:/app/packages:delegated
     env_file:
       - ./apps/backend/.env
     depends_on:
       db:
         condition: service_healthy
+
+  web:
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile.dev
+    container_name: web-trackfast
+    platform: linux/x86_64
+    ports:
+      - 3000:3000
+    volumes:
+      - ./apps/web/src:/app/apps/web/src
+      - ./apps/web/node_modules:/app/apps/web/node_modules
+      - ./tsconfig.base.json:/app/tsconfig.base.json
+    networks:
+      - kidstoystore
+    depends_on:
+      - backend
 
   db:
     image: postgres:16
