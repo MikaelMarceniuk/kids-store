@@ -18,6 +18,7 @@ model User {
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  Sales     Sales[]
 
   @@map("users")
 }
@@ -31,6 +32,18 @@ model Session {
   user   User   @relation(fields: [userId], references: [id])
 
   @@map("sessions")
+}
+
+model Sales {
+  id     String   @id @default(uuid())
+  amount Float
+  date   DateTime @default(now())
+  price  Float
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@map("sales")
 }
 
 enum Role {
