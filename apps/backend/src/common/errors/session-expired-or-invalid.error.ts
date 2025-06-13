@@ -1,5 +1,5 @@
 import { HttpStatus } from '@nestjs/common';
-import { BaseError } from './base-error.error';
+import { BaseError } from '../bases/error.base';
 
 export class SessionExpiredOrInvalidError extends BaseError {
   constructor() {

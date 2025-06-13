@@ -1,6 +1,6 @@
 import { Role, User } from '@prisma/client';
 
-export class GetCurrentUserPresenter {
+export class GetUserPresenter {
   id: string;
   name: string;
   email: string;

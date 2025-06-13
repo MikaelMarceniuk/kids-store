@@ -1,19 +1,18 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
-import { BaseError } from 'src/common/errors/base-error.error';
-import { UserAlreadyExistsError } from 'src/common/errors/user-already-exists.error';
+import { BaseError } from 'src/common/bases/error.base';
 import { UserNotFoundError } from 'src/common/errors/user-not-found.error';
-import { hashPassword } from 'src/common/utils/hash-password.util';
 import { PrismaService } from 'src/providers/database/prisma.service';
 import { AuthenticateDTO } from './dto/authenticate.dto';
 import { RegisterDTO } from './dto/register.dto';
 
+import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
-import { User } from 'generated/prisma';
 import { InvalidCredentialsError } from 'src/common/errors/invalid-credentials.error';
 import { JwtService } from 'src/providers/jwt/jwt.service';
 import { RefreshTokenService } from 'src/providers/refresh-token/refresh-token.service';
 import { SessionService } from 'src/providers/session/session.service';
+import { UserService } from '../users/user.service';
 import { AuthenticatePresenter } from './presenters/authenticate.presenter';
 
 @Injectable()
@@ -23,6 +22,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly refreshTokenService: RefreshTokenService,
     private readonly sessionService: SessionService,
+    private readonly userService: UserService,
   ) {}
 
   async authenticate({
@@ -59,32 +59,8 @@ export class AuthService {
     }
   }
 
-  async register({ name, email, password }: RegisterDTO): Promise<void> {
-    try {
-      const userByEmail = await this.prismaService.user.findUnique({
-        where: { email },
-      });
-
-      if (userByEmail) {
-        throw new UserAlreadyExistsError();
-      }
-
-      const passwordHash = await hashPassword(password);
-
-      await this.prismaService.user.create({
-        data: {
-          name,
-          email,
-          passwordHash,
-        },
-      });
-    } catch (error) {
-      if (error instanceof BaseError) {
-        throw error;
-      }
-
-      throw new InternalServerErrorException('Failed to register user');
-    }
+  async register(data: RegisterDTO): Promise<void> {
+    await this.userService.createUser({ ...data, role: 'USER' });
   }
 
   async refreshAccessToken(

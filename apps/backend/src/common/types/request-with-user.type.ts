@@ -1,4 +1,4 @@
-import { User } from 'generated/prisma';
+import { User } from '@prisma/client';
 import { RequestWithCookies } from './request-with-cookies.type';
 
 export interface RequestWithUser extends RequestWithCookies {
