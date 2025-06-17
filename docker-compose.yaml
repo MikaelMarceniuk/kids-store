@@ -30,7 +30,6 @@ services:
     volumes:
       - ./apps/web/src:/app/apps/web/src
       - ./apps/web/node_modules:/app/apps/web/node_modules
-      - ./tsconfig.base.json:/app/tsconfig.base.json
     networks:
       - kidstoystore
     depends_on:

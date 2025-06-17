@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { SessionExpiredOrInvalidError } from 'src/common/errors/session-expired-or-invalid.error';
+import { SessionExpiredOrInvalidError } from '../../common/errors/session-expired-or-invalid.error';
 import { PrismaService } from '../database/prisma.service';
 import { CheckIfRefreshTokenIsValidResponse } from './types/check-if-refresh-token-is-valid-response.type';
 

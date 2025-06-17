@@ -1,15 +1,15 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { BaseError } from 'src/common/bases/error.base';
-import { UserAlreadyExistsError } from 'src/common/errors/user-already-exists.error';
-import { hashPassword } from 'src/common/utils/hash-password.util';
-import { PrismaService } from 'src/providers/database/prisma.service';
+import { BaseError } from '../../common/bases/error.base';
+import { UserAlreadyExistsError } from '../../common/errors/user-already-exists.error';
+import { UserNotFoundError } from '../../common/errors/user-not-found.error';
+import { hashPassword } from '../../common/utils/hash-password.util';
+import { PrismaService } from '../../providers/database/prisma.service';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { GetUsersDTO } from './dto/get-users.dto';
+import { UpdateUserDTO } from './dto/update-user.dto';
 import { GetCurrentUserPresenter } from './presenters/get-current-user.presenter';
 import { GetUsersPaginationPresenter } from './presenters/get-users-pagination.presenter';
-import { UpdateUserDTO } from './dto/update-user.dto';
-import { UserNotFoundError } from 'src/common/errors/user-not-found.error';
 
 @Injectable()
 export class UserService {

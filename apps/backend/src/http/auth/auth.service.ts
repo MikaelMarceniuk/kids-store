@@ -1,17 +1,17 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
-import { BaseError } from 'src/common/bases/error.base';
-import { UserNotFoundError } from 'src/common/errors/user-not-found.error';
-import { PrismaService } from 'src/providers/database/prisma.service';
+import { BaseError } from '../../common/bases/error.base';
+import { UserNotFoundError } from '../../common/errors/user-not-found.error';
+import { PrismaService } from '../../providers/database/prisma.service';
 import { AuthenticateDTO } from './dto/authenticate.dto';
 import { RegisterDTO } from './dto/register.dto';
 
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
-import { InvalidCredentialsError } from 'src/common/errors/invalid-credentials.error';
-import { JwtService } from 'src/providers/jwt/jwt.service';
-import { RefreshTokenService } from 'src/providers/refresh-token/refresh-token.service';
-import { SessionService } from 'src/providers/session/session.service';
+import { InvalidCredentialsError } from '../../common/errors/invalid-credentials.error';
+import { JwtService } from '../../providers/jwt/jwt.service';
+import { RefreshTokenService } from '../../providers/refresh-token/refresh-token.service';
+import { SessionService } from '../../providers/session/session.service';
 import { UserService } from '../users/user.service';
 import { AuthenticatePresenter } from './presenters/authenticate.presenter';
 
