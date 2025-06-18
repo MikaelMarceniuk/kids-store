@@ -15,8 +15,8 @@ import { JwtGuard } from 'src/common/guards/jwt.guard';
 import { RoleGuard } from 'src/common/guards/role.guard';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { GetUsersDTO } from './dto/get-users.dto';
-import { UserService } from './user.service';
 import { UpdateUserDTO } from './dto/update-user.dto';
+import { UserService } from './user.service';
 
 @Controller('users')
 export class UserController {
@@ -33,6 +33,13 @@ export class UserController {
   @Get()
   async getUsers(@Query() query: GetUsersDTO) {
     return await this.userService.getUsers(query);
+  }
+
+  @UseGuards(RoleGuard(['ADMIN']))
+  @UseGuards(JwtGuard)
+  @Get(':id')
+  async getUserDetails(@Param('id') id: string) {
+    return await this.userService.getUserDetails(id);
   }
 
   @UseGuards(RoleGuard(['ADMIN']))

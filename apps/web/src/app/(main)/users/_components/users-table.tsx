@@ -38,6 +38,7 @@ import { useDebounce } from 'use-debounce'
 import { z } from 'zod'
 import { useGetUsers } from '../_hooks/get-users.hook'
 import { AddUserDialog } from './add-user.dialog'
+import { UserActions } from './user-actions'
 
 const schema = z.object({
   email: z.string().optional(),
@@ -51,6 +52,11 @@ export const columns: ColumnDef<User>[] = [
   { accessorKey: 'name', header: 'Name' },
   { accessorKey: 'email', header: 'Email' },
   { accessorKey: 'role', header: 'Role' },
+  {
+    accessorKey: 'id',
+    header: '',
+    cell: ({ row }) => <UserActions userId={row.original.id} />,
+  },
 ]
 
 export function UsersTable() {
