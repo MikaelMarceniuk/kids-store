@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/providers/database/prisma.service';
+import { PrismaService } from '../../providers/database/prisma.service';
 import { TopCustomerByPurchaseFrequencyPresenter } from './presenters/top-costumers-by-purchase-frequency.presenter';
 import { TopCustomerByAverageSalePresenter } from './presenters/top-customers-by-average-sale.presenters';
 import { TopCustomersByVolumePresenter } from './presenters/top-customers-by-volume.presenter';
