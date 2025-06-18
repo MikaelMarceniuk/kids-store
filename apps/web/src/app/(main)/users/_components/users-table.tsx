@@ -33,11 +33,11 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { useEffect } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { useDebounce } from 'use-debounce'
 import { z } from 'zod'
-import { useGetUsers } from '../_hooks/user-get-users.hook'
+import { useGetUsers } from '../_hooks/get-users.hook'
+import { AddUserDialog } from './add-user.dialog'
 
 const schema = z.object({
   email: z.string().optional(),
@@ -76,75 +76,83 @@ export function UsersTable() {
 
   return (
     <div className="space-y-4">
-      <Form {...form}>
-        <form className="flex gap-3">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder=""
-                    {...field}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
+      <div className="flex justify-between">
+        <Form {...form}>
+          <form className="flex gap-3">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder=""
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="m@example.com"
-                    {...field}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="m@example.com"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="role"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Role</FormLabel>
-                <FormControl>
-                  <Select
-                    value={field.value}
-                    onValueChange={(value) => {
-                      field.onChange(value === 'remove' ? '' : (value as Role))
-                    }}
-                  >
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select a role..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {Object.keys(Role).map((role) => (
-                        <SelectItem
-                          key={role}
-                          value={role}
-                        >
-                          {role.charAt(0).toUpperCase() +
-                            role.slice(1).toLowerCase()}
-                        </SelectItem>
-                      ))}
-                      <SelectItem value="remove">None</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-              </FormItem>
-            )}
-          />
-        </form>
-      </Form>
+            <FormField
+              control={form.control}
+              name="role"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Role</FormLabel>
+                  <FormControl>
+                    <Select
+                      value={field.value}
+                      onValueChange={(value) => {
+                        field.onChange(
+                          value === 'remove' ? '' : (value as Role)
+                        )
+                      }}
+                    >
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Select a role..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.keys(Role).map((role) => (
+                          <SelectItem
+                            key={role}
+                            value={role}
+                          >
+                            {role.charAt(0).toUpperCase() +
+                              role.slice(1).toLowerCase()}
+                          </SelectItem>
+                        ))}
+                        <SelectItem value="remove">None</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
+
+        <div className="self-end">
+          <AddUserDialog />
+        </div>
+      </div>
 
       <div className="rounded-md border h-[50vh] overflow-auto">
         <Table>
