@@ -14,3 +14,16 @@ export function cleanFilters<T extends Record<string, unknown>>(
     )
   ) as Partial<T>
 }
+
+export function firstMissingLetter(name: string): string {
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+  const normalized = name.toUpperCase()
+
+  for (const letter of alphabet) {
+    if (!normalized.includes(letter)) {
+      return letter
+    }
+  }
+  return '-'
+}

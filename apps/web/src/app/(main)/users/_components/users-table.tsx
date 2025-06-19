@@ -16,14 +16,19 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import { useState } from 'react'
-import { useGetUsers } from '../_hooks/get-users.hook'
+import { useGetUsers, UserWithMissingLetter } from '../_hooks/get-users.hook'
 import { UserActions } from './user-actions'
 import { UserFilters } from './user-filters'
 
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<UserWithMissingLetter>[] = [
   { accessorKey: 'name', header: 'Name' },
   { accessorKey: 'email', header: 'Email' },
   { accessorKey: 'role', header: 'Role' },
+  {
+    accessorKey: 'missingLetter',
+    header: 'Letra Faltante',
+    cell: ({ row }) => row.original.missingLetter,
+  },
   {
     accessorKey: 'id',
     header: '',
