@@ -21,7 +21,7 @@ export function useAuthenticate() {
 
       return apiResp
     },
-    onSuccess: () => replace('/'),
+    onSuccess: () => replace('/dashboard'),
     onError: (error) => {
       toast.error('Error', { description: error.message })
     },
