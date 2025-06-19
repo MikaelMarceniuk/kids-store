@@ -75,9 +75,10 @@ export function UsersTable() {
   const { users } = useGetUsers(cleanFilters(debouncedFilters))
 
   const table = useReactTable({
-    data: users || [],
+    data: users,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    autoResetPageIndex: false,
   })
 
   return (
@@ -178,6 +179,7 @@ export function UsersTable() {
               </TableRow>
             ))}
           </TableHeader>
+
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
