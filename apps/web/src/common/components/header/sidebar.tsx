@@ -10,7 +10,7 @@ import {
 } from '../ui/sidebar'
 
 const items = [
-  { title: 'Dashboard', url: '/', icon: <ChartArea /> },
+  { title: 'Dashboard', url: '/dashboard', icon: <ChartArea /> },
   { title: 'Users', url: '/users', icon: <User /> },
 ]
 

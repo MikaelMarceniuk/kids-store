@@ -39,7 +39,7 @@ export class StatusService {
             price: 'desc',
           },
         },
-        take: 10,
+        take: 5,
       });
 
       const users = await this.prismaService.user.findMany({
@@ -87,7 +87,7 @@ export class StatusService {
           price: 'desc',
         },
       },
-      take: 10,
+      take: 5,
     });
 
     const users = await this.prismaService.user.findMany({
@@ -119,7 +119,7 @@ export class StatusService {
     FROM sales
     GROUP BY "user_id"
     ORDER BY dias_unicos DESC
-    LIMIT 10
+    LIMIT 5
   `);
 
     const results = rawResults.map((r) => ({
