@@ -29,7 +29,7 @@ export function UserMenu() {
           <div className="hidden md:block text-left">
             <p className="text-sm font-medium">{user?.name}</p>
             {user?.role && (
-              <p className="text-xs text-muted-foreground">Administrador</p>
+              <p className="text-xs text-muted-foreground">{user.role}</p>
             )}
           </div>
           <ChevronDown className="h-4 w-4 text-muted-foreground hidden md:block" />
