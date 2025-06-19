@@ -1,5 +1,5 @@
 import { FormattedApiError } from '@/src/common/lib/http/types/formated-api-error.type'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import {
   CreateUserAction,
@@ -7,6 +7,8 @@ import {
 } from '../actions/create-user-action'
 
 export function useCreateUser() {
+  const queryClient = useQueryClient()
+
   const { mutate } = useMutation({
     mutationFn: async (data: CreateUserActionParams) => {
       const apiResp =
@@ -22,6 +24,8 @@ export function useCreateUser() {
       toast.success('Success!', {
         description: 'User created successfully!',
       })
+
+      queryClient.invalidateQueries({ queryKey: ['users'], exact: false })
     },
     onError: (error) => {
       toast.error('Error', {

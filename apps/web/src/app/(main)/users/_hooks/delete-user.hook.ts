@@ -2,17 +2,17 @@ import { FormattedApiError } from '@/src/common/lib/http/types/formated-api-erro
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import {
-  UpdateUserAction,
-  UpdateUserActionParams,
-} from '../actions/update-user-action'
+  deleteUserAction,
+  DeleteUserActionParams,
+} from '../actions/delete-user.action'
 
-export function useUpdateUser() {
+export function useDeleteUser() {
   const queryClient = useQueryClient()
 
   const { mutate } = useMutation({
-    mutationFn: async (data: UpdateUserActionParams) => {
+    mutationFn: async (data: DeleteUserActionParams) => {
       const apiResp =
-        (await UpdateUserAction({ ...data })) || ({} as FormattedApiError)
+        (await deleteUserAction({ ...data })) || ({} as FormattedApiError)
 
       if ('error' in apiResp) {
         throw new Error(apiResp.error)
@@ -22,7 +22,7 @@ export function useUpdateUser() {
     },
     onSuccess: () => {
       toast.success('Success!', {
-        description: 'User updated successfully!',
+        description: 'User deleted successfully!',
       })
 
       queryClient.invalidateQueries({ queryKey: ['users'], exact: false })

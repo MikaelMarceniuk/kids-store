@@ -10,6 +10,7 @@ import {
 } from '@/src/common/components/ui/dropdown-menu'
 import { EllipsisVertical } from 'lucide-react'
 import { useState } from 'react'
+import { DeleteUserDialog } from './delete-user.dialog'
 import { EditUserDialog } from './edit-user.dialog'
 
 interface UserActionsProps {
@@ -17,10 +18,15 @@ interface UserActionsProps {
 }
 
 export function UserActions({ userId }: UserActionsProps) {
-  const [open, setOpen] = useState(false)
+  const [isEditUserDialogOpen, setEditUserDialogOpen] = useState(false)
+  const [isDeleteUserDialogOpen, setDeleteUserDialogOpen] = useState(false)
 
   const handleEditClick = () => {
-    setOpen(true)
+    setEditUserDialogOpen(true)
+  }
+
+  const handleDeleteClick = () => {
+    setDeleteUserDialogOpen(true)
   }
 
   return (
@@ -33,14 +39,22 @@ export function UserActions({ userId }: UserActionsProps) {
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={handleEditClick}>Edit</DropdownMenuItem>
-          <DropdownMenuItem>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleDeleteClick}>
+            Delete
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
       <EditUserDialog
         userId={userId}
-        open={open}
-        onOpenChange={setOpen}
+        open={isEditUserDialogOpen}
+        onOpenChange={setEditUserDialogOpen}
+      />
+
+      <DeleteUserDialog
+        userId={userId}
+        open={isDeleteUserDialogOpen}
+        onOpenChange={setDeleteUserDialogOpen}
       />
     </>
   )
