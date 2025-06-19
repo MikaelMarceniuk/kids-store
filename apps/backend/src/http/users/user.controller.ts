@@ -28,14 +28,14 @@ export class UserController {
     return await this.userService.getCurrentUser(user.id);
   }
 
-  @UseGuards(RoleGuard(['ADMIN']))
+  @UseGuards(RoleGuard(['ADMIN', 'USER']))
   @UseGuards(JwtGuard)
   @Get()
   async getUsers(@Query() query: GetUsersDTO) {
     return await this.userService.getUsers(query);
   }
 
-  @UseGuards(RoleGuard(['ADMIN']))
+  @UseGuards(RoleGuard(['ADMIN', 'USER']))
   @UseGuards(JwtGuard)
   @Get(':id')
   async getUserDetails(@Param('id') id: string) {
