@@ -12,7 +12,7 @@ export function useGetUsers(filters: GetUsersActionParams) {
       const apiResp = await getUsersAction(filters)
 
       if ('error' in apiResp) {
-        toast.warning('Error in getting users.')
+        toast.error(apiResp.error)
         return null
       }
 

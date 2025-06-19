@@ -17,7 +17,7 @@ export function useGetUserDetails({
       const apiResp = await getUserDetailsAction({ userId })
 
       if ('error' in apiResp) {
-        toast.warning('Error in getting user.')
+        toast.error(apiResp.error)
         return null
       }
 
