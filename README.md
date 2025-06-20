@@ -66,6 +66,8 @@ cd apps/backend
 yarn test:unit
 ```
 
+Os testes podem dar erro na primeira vez por causa que o container de teste pode nao ter corretamente iniciado
+
 > O backend utiliza Testcontainers para rodar testes com banco PostgreSQL em memória.
 
 ---
