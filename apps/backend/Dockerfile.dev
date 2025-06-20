@@ -27,8 +27,14 @@ COPY --from=deps /app/node_modules ./node_modules
 # Copia o restante da aplicação
 COPY apps/backend ./apps/backend
 
+# Copia o script de entrypoint
+COPY apps/backend/entrypoint.sh ./apps/backend/entrypoint.sh
+
+# Permissão de execução
+RUN chmod +x ./apps/backend/entrypoint.sh
+
 WORKDIR /app/apps/backend
 
 EXPOSE 3333
 
-CMD ["yarn", "start:dev"]
+ENTRYPOINT ["./entrypoint.sh"]
